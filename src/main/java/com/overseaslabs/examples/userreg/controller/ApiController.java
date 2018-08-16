@@ -1,16 +1,16 @@
 package com.overseaslabs.examples.userreg.controller;
 
 import com.overseaslabs.examples.userreg.entity.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.overseaslabs.examples.userreg.exception.ResourceNotFoundException;
+import com.overseaslabs.examples.userreg.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Exposes the microservice's API
@@ -18,56 +18,76 @@ import java.util.List;
 @RestController
 public class ApiController {
 
+    private UserRepository userRepository;
+
+    public ApiController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     /**
      * Find the user
      *
      * @param id The ID of the user
-     * @return User instance
+     * @return The found user
      */
     @GetMapping("/users/{id}")
-    public User get(@PathVariable int id) {
-        return new User();
+    public Optional<User> get(@PathVariable Integer id) {
+        return userRepository.findById(id);
     }
 
     /**
      * Find the users matching to the search request
      *
-     * @param request HTTP request
      * @return The found users
      */
     @GetMapping("/users")
-    public List<User> find(HttpServletRequest request) {
-        return new ArrayList<>();
+    public Page<User> find(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     /**
-     * Create a user
+     * Create a new user
      *
-     * @param request A request with data to create a user
-     * @return An instance of the created user
+     * @param user User data
+     * @return The created user
      */
     @PostMapping("/users")
-    public User create(HttpServletRequest request) {
-        return new User();
+    public User create(@Valid @RequestBody User user) {
+        return userRepository.save(user);
     }
 
     /**
      * Update a user
-     * @param request A request holding the data to update the user
-     * @param id The ID of the user to update
-     * @return An instance of the updated user
+     *
+     * @param id   The ID of the user to update
+     * @param user User data
+     * @return The updated user
      */
     @PutMapping("/users/{id}")
-    public User update(HttpServletRequest request, @PathVariable int id) {
-        return new User();
+    public User update(@PathVariable Integer id, @Valid @RequestBody User user) {
+        return userRepository.findById(id)
+                .map(e -> {
+                    e.setEmail(user.getEmail())
+                            .setFirstName(user.getFirstName())
+                            .setLastName(user.getLastName());
+
+                    return userRepository.save(e);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("User" + id + " not found"));
     }
 
     /**
      * Delete the user
+     *
      * @param id The ID of the user to delete
      */
     @DeleteMapping("/users/{id}")
-    public void delete(@PathVariable int id) {
-
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        return userRepository.findById(id)
+                .map(e -> {
+                    userRepository.delete(e);
+                    return ResponseEntity.ok().build();
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("User" + id + " not found"));
     }
 }
