@@ -27,14 +27,15 @@ public class User {
 
     @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private ZonedDateTime created;
 
     @UpdateTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private ZonedDateTime updated;
 
 
