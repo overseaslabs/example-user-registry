@@ -21,17 +21,24 @@ plugins {
 // Define the main class for the application
 mainClassName = 'com.overseaslabs.examples.userreg.App'
 
+bootJar {
+    baseName = 'ureg'
+    version = '0.1.0'
+}
+
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile(
             [group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.4.RELEASE'],
             [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.4.RELEASE'],
-            [group: 'org.postgresql', name: 'postgresql', version: '42.2.4']
+            [group: 'org.postgresql', name: 'postgresql', version: '42.2.4'],
+            [group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0']
     )
 
     testCompile(
             group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.4.RELEASE'
-    )}
+    )
+}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
