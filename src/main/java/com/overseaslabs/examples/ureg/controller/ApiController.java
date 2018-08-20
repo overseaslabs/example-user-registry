@@ -1,8 +1,8 @@
-package com.overseaslabs.examples.userreg.controller;
+package com.overseaslabs.examples.ureg.controller;
 
-import com.overseaslabs.examples.userreg.entity.User;
-import com.overseaslabs.examples.userreg.exception.ResourceNotFoundException;
-import com.overseaslabs.examples.userreg.repository.UserRepository;
+import com.overseaslabs.examples.ureg.entity.User;
+import com.overseaslabs.examples.ureg.exception.ResourceNotFoundException;
+import com.overseaslabs.examples.ureg.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,7 +73,7 @@ public class ApiController {
 
                     return userRepository.save(e);
                 })
-                .orElseThrow(() -> new ResourceNotFoundException("User" + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User %d is not found", id)));
     }
 
     /**
@@ -88,6 +88,6 @@ public class ApiController {
                     userRepository.delete(e);
                     return ResponseEntity.ok().build();
                 })
-                .orElseThrow(() -> new ResourceNotFoundException("User" + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User %d is not found", id)));
     }
 }

@@ -1,4 +1,4 @@
-package com.overseaslabs.examples.userreg.exception;
+package com.overseaslabs.examples.ureg.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

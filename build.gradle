@@ -19,7 +19,7 @@ plugins {
 }
 
 // Define the main class for the application
-mainClassName = 'com.overseaslabs.examples.userreg.App'
+mainClassName = 'com.overseaslabs.examples.ureg.App'
 
 bootJar {
     baseName = 'ureg'

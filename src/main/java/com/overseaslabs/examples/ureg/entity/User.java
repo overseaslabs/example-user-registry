@@ -1,4 +1,4 @@
-package com.overseaslabs.examples.userreg.entity;
+package com.overseaslabs.examples.ureg.entity;
 
 import java.time.ZonedDateTime;
 

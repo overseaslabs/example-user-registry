@@ -1,6 +1,6 @@
-package com.overseaslabs.examples.userreg.repository;
+package com.overseaslabs.examples.ureg.repository;
 
-import com.overseaslabs.examples.userreg.entity.User;
+import com.overseaslabs.examples.ureg.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
