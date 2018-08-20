@@ -31,8 +31,10 @@ dependencies {
     compile(
             [group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.4.RELEASE'],
             [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.4.RELEASE'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.4.RELEASE'],
             [group: 'org.postgresql', name: 'postgresql', version: '42.2.4'],
-            [group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0']
+            [group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'],
+            [group: 'redis.clients', name: 'jedis', version: '2.9.0']
     )
 
     testCompile(
