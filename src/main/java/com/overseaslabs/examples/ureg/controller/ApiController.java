@@ -1,5 +1,6 @@
 package com.overseaslabs.examples.ureg.controller;
 
+import com.overseaslabs.examples.ureg.MessagePublisher;
 import com.overseaslabs.examples.ureg.entity.User;
 import com.overseaslabs.examples.ureg.exception.ResourceNotFoundException;
 import com.overseaslabs.examples.ureg.repository.UserRepository;
@@ -19,9 +20,11 @@ import org.springframework.data.domain.Pageable;
 public class ApiController {
 
     private UserRepository userRepository;
+    private MessagePublisher messagePublisher;
 
-    public ApiController(UserRepository userRepository) {
+    public ApiController(UserRepository userRepository, MessagePublisher messagePublisher) {
         this.userRepository = userRepository;
+        this.messagePublisher = messagePublisher;
     }
 
     /**
@@ -53,7 +56,9 @@ public class ApiController {
      */
     @PostMapping("/users")
     public User create(@Valid @RequestBody User user) {
-        return userRepository.save(user);
+        User newUser = userRepository.save(user);
+        messagePublisher.publish(newUser);
+        return newUser;
     }
 
     /**
