@@ -34,7 +34,8 @@ dependencies {
             [group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.4.RELEASE'],
             [group: 'org.postgresql', name: 'postgresql', version: '42.2.4'],
             [group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'],
-            [group: 'redis.clients', name: 'jedis', version: '2.9.0']
+            [group: 'redis.clients', name: 'jedis', version: '2.9.0'],
+            [group: 'com.overseaslabs.example', name: 'entities', version: '1.0'],
     )
 
     testCompile(
@@ -47,6 +48,14 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven {
+        url "s3://overseaslabs-artifacts-public"
+        credentials(AwsCredentials) {
+            //the credentials come from env vars when building the project (read-only)
+            accessKey System.env.AWS_ACCESS_KEY ?: AWS_ACCESS_KEY
+            secretKey System.env.AWS_SECRET_KEY ?: AWS_SECRET_KEY
+        }
+    }
 }
 
 task resolveDependencies {
