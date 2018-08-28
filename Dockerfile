@@ -4,6 +4,9 @@
 
 FROM openjdk:10 AS BUILDER
 
+ARG AWS_ACCESS_KEY
+ARG AWS_SECRET_KEY
+
 #make the project dir
 ENV APP_HOME=/proj
 RUN mkdir -p  $APP_HOME
