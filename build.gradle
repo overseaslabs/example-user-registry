@@ -35,7 +35,8 @@ dependencies {
             [group: 'org.postgresql', name: 'postgresql', version: '42.2.4'],
             [group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'],
             [group: 'redis.clients', name: 'jedis', version: '2.9.0'],
-            [group: 'com.overseaslabs.example', name: 'entities', version: '1.0'],
+            [group: 'com.overseaslabs.example', name: 'entities', version: '0.2.0'],
+            [group: 'com.overseaslabs.example', name: 'utils', version: '0.2.0'],
     )
 
     testCompile(
