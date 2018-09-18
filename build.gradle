@@ -39,8 +39,11 @@ dependencies {
             [group: 'com.overseaslabs.example', name: 'utils', version: '0.2.0'],
     )
 
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.4.RELEASE')
+
     testCompile(
-            group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.4.RELEASE'
+            [group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'],
+            [group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1']
     )
 }
 
