@@ -5,6 +5,7 @@ import com.overseaslabs.examples.ureg.entity.User;
 import com.overseaslabs.examples.ureg.repository.UserRepository;
 import com.overseaslabs.examples.utils.exception.ResourceConflictException;
 import com.overseaslabs.examples.utils.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,11 @@ import org.springframework.data.domain.Pageable;
 @RestController
 public class ApiController {
 
+    @Autowired
     private UserRepository userRepository;
-    private MessagePublisher messagePublisher;
 
-    public ApiController(UserRepository userRepository, MessagePublisher messagePublisher) {
-        this.userRepository = userRepository;
-        this.messagePublisher = messagePublisher;
-    }
+    @Autowired
+    private MessagePublisher messagePublisher;
 
     /**
      * Checks whether the user's email conflicts with the email of another user in the DB
@@ -70,6 +69,7 @@ public class ApiController {
      * @return The created user
      */
     @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
     public User create(@Valid @RequestBody User user) throws ResourceConflictException {
         if (conflicts(user)) {
             throw new ResourceConflictException("The email " + user.getEmail() + " is already used");

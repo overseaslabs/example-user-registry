@@ -35,16 +35,22 @@ dependencies {
             [group: 'org.postgresql', name: 'postgresql', version: '42.2.4'],
             [group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'],
             [group: 'redis.clients', name: 'jedis', version: '2.9.0'],
-            [group: 'com.overseaslabs.example', name: 'entities', version: '0.2.0'],
+            [group: 'com.overseaslabs.example', name: 'entities', version: '0.4.1'],
             [group: 'com.overseaslabs.example', name: 'utils', version: '0.2.0'],
     )
 
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.4.RELEASE')
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.4.RELEASE') {
+        exclude group: 'junit'
+    }
 
     testCompile(
             [group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'],
             [group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1']
     )
+}
+
+test {
+    useJUnitPlatform()
 }
 
 // In this section you declare where to find the dependencies of your project

@@ -2,6 +2,7 @@ package com.overseaslabs.examples.ureg;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -46,6 +47,6 @@ public class UregConfiguration {
 
     @Bean
     MessagePublisher redisMessagePublisher() {
-        return new RedisMessagePublisher(redisTemplate(), topic());
+        return new RedisMessagePublisher();
     }
 }
