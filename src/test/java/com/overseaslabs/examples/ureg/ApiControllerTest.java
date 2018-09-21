@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -36,14 +35,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ApiController.class)
 @EnableSpringDataWebSupport
 class ApiControllerTest {
-    //@Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
 
     @Autowired
-    ApiController apiController;
+    private ApiController apiController;
 
     @Autowired
-    ObjectMapper om;
+    private ObjectMapper om;
 
     @MockBean
     private UserRepository repository;

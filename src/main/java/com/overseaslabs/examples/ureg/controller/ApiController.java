@@ -16,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * Exposes the microservice's API
+ * Exposes the API
  */
 @RestController
 public class ApiController {
@@ -43,9 +43,6 @@ public class ApiController {
 
     /**
      * Find the user
-     *
-     * @param id The ID of the user
-     * @return The found user
      */
     @GetMapping("/users/{id}")
     public User get(@PathVariable Integer id) throws ResourceNotFoundException {
@@ -54,8 +51,6 @@ public class ApiController {
 
     /**
      * Find the users matching to the search request
-     *
-     * @return The found users
      */
     @GetMapping("/users")
     public Page<User> find(Pageable pageable) {
@@ -64,9 +59,6 @@ public class ApiController {
 
     /**
      * Create a new user
-     *
-     * @param user User data
-     * @return The created user
      */
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
@@ -82,10 +74,6 @@ public class ApiController {
 
     /**
      * Update a user
-     *
-     * @param id   The ID of the user to update
-     * @param user User data
-     * @return The updated user
      */
     @PutMapping("/users/{id}")
     public User update(@PathVariable Integer id, @Valid @RequestBody User user) throws ResourceNotFoundException, ResourceConflictException {
@@ -107,8 +95,6 @@ public class ApiController {
 
     /**
      * Delete the user
-     *
-     * @param id The ID of the user to delete
      */
     @DeleteMapping("/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
