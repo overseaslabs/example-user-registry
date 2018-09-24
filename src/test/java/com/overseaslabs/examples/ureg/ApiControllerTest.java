@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +50,19 @@ class ApiControllerTest {
 
     @MockBean
     private MessagePublisher publisher;
+
+    @Configuration
+    static class Config {
+        @Bean
+        ObjectMapper om() {
+            return new ObjectMapper();
+        }
+
+        @Bean
+        ApiController apiController() {
+            return new ApiController();
+        }
+    }
 
     @BeforeEach
     void beforeEach() {
