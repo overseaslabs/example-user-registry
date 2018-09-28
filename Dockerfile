@@ -34,13 +34,13 @@ LABEL vendor="Overseas Labs Limited" \
       vendor.website="http://overseaslsbs.com" \
       description="User registry microservice" \
       project="Example project" \
-      tag="overseaslabs/example-ureg"
+      tag="overseaslabs/example-ureg:1.0.0"
 
 EXPOSE 8080
 
-COPY --from=BUILDER /proj/build/distributions/code-boot.tar /app/
+COPY --from=BUILDER /proj/build/distributions/ureg-boot.tar /app/
 WORKDIR /app
-RUN tar -xvf code-boot.tar
-WORKDIR /app/code-boot/bin
+RUN tar -xvf ureg-boot.tar
+WORKDIR /app/ureg-boot/bin
 
-CMD ["/app/code-boot/bin/code"]
+CMD ["/app/ureg-boot/bin/ureg"]
