@@ -6,17 +6,25 @@
  * user guide available at https://docs.gradle.org/4.9/userguide/tutorial_java_projects.html
  */
 
-plugins {
-    // Apply the java plugin to add support for Java
-    id 'java'
-
-    // Apply the application plugin to add support for building an application
-    id 'application'
-
-    id "org.springframework.boot" version "2.0.4.RELEASE"
-
-    id "idea"
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
+    }
 }
+
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+apply plugin: 'application'
+
+//spring plugins
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+//ide
+apply plugin: "idea"
 
 // Define the main class for the application
 mainClassName = 'com.overseaslabs.examples.ureg.App'
@@ -29,17 +37,19 @@ bootJar {
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile(
-            [group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.4.RELEASE'],
-            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.4.RELEASE'],
-            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.0.4.RELEASE'],
-            [group: 'org.postgresql', name: 'postgresql', version: '42.2.4'],
-            [group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'],
-            [group: 'redis.clients', name: 'jedis', version: '2.9.0'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-web'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'],
+            [group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'],
+            [group: 'org.postgresql', name: 'postgresql'],
+            [group: 'javax.xml.bind', name: 'jaxb-api'],
+            [group: 'redis.clients', name: 'jedis'],
+
+            //osl
             [group: 'com.overseaslabs.example', name: 'entities', version: '1.0.0'],
             [group: 'com.overseaslabs.example', name: 'utils', version: '1.0.2'],
     )
 
-    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.4.RELEASE') {
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test') {
         exclude group: 'junit'
     }
 
